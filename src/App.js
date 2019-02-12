@@ -21,6 +21,7 @@ class App extends Component {
     this.onEditSubmit = this.onEditSubmit.bind(this);
    this.updateImage=this.updateImage.bind(this)
     this.imageUpload = this.imageUpload.bind(this);
+    this.onChange=this.onChange.bind(this);
   }
   componentWillMount() {
     const data = this.getData();
@@ -33,6 +34,12 @@ class App extends Component {
     let data = this.getData(); 
     data.description = description;
     localStorage.setItem('data', JSON.stringify(data));
+  }
+  onChange(description){
+    let data=this.getData();
+    data.description = description;
+    localStorage.setItem('data', JSON.stringify(data));
+
   }
   onAdd(name, description) {
     let data = this.getData();
@@ -66,7 +73,7 @@ class App extends Component {
             () => < EntryItem onAdd={this.onAdd} exact onUpload={this.imageUpload} />
           } />
           <Route path={`/${this.state.data.name}`}  render={
-            () => < Display details={this.state.data} img={this.state.imgD} onEditSubmit={this.onEditSubmit}  onUpdate={this.updateImage}/>
+            () => < Display details={this.state.data} img={this.state.imgD} onchange={this.onChange} onEditSubmit={this.onEditSubmit}  onUpdate={this.updateImage}/>
           } />
           <Route path="/:name" render={
             () => (<p>Path not found</p>)
